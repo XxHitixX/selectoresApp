@@ -1,0 +1,79 @@
+<h1 class="mt-5"> Selectores anidados</h1>
+    <hr>
+
+    <form [formGroup]="miFormulario" (submit)="guardar()">
+        <!-- Region -->
+        <div class="row">
+            <div class="col">
+                <label class="form-label">Continente: </label>
+                <select class="form-control"
+                        formControlName="region">
+                    <option value="">
+                            -- Selecciona un continente --
+                    </option>
+                    <option [value]="region | lowercase"
+                            *ngFor="let region of regiones">{{region}}</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Paises -->
+        <div class="row mt-3"
+            *ngIf="paises.length !== 0">
+            <div class="col">
+                <label class="form-label">País: </label>
+                <select class="form-control"
+                        formControlName="pais">
+                    <option value="">
+                            -- Selecciona un país --
+                    </option>
+                    <option [value]="pais.cca2"
+                            *ngFor="let pais of paises">{{ pais.name.common }}</option>
+                </select>
+            </div>
+        </div>
+
+
+        <!-- Limites or Borders countries -->
+        <div class="row mt-3"
+            *ngIf="fronteras?.length !== 0">
+            <div class="col">
+                <label class="form-label">Fronteras: </label>
+                <select class="form-control"
+                        formControlName="limites">
+                    <option value="">
+                            -- Fronteras --
+                    </option>
+                     <option [value]="" 
+                            *ngFor="let frontera of fronteras">
+                        {{ frontera.borders }}
+                    </option> 
+                        
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-primary"
+                        *ngIf="cargando">
+                    Cargando...
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <button class="btn btn-primary float-end"
+                        type="submit">
+                    Seleccionar
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+
+    <h5>Mi formulario</h5>
+    <pre>Valid:  {{miFormulario.valid | json}}</pre>
+    <pre>Value: {{miFormulario.value | json}} </pre>
